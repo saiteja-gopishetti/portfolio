@@ -106,15 +106,28 @@
         }
 
         // Check if element is in viewport
+        // function isElementInViewport(el) {
+        //     const rect = el.getBoundingClientRect();
+        //     return (
+        //         rect.top >= 0 &&
+        //         rect.left >= 0 &&
+        //         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        //         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        //     );
+        // }
+
         function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-        }
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+
+    return (
+        rect.top < windowHeight - 80 &&   // element enters 80px before bottom
+        rect.bottom > 0 &&                // still not scrolled past top
+        rect.left < windowWidth &&
+        rect.right > 0
+    );
+}
 
         // Fade in animation for sections
         function fadeInOnScroll() {
