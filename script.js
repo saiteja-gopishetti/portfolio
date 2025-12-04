@@ -78,8 +78,8 @@
         // Download CV function
         function downloadCV() {
             const link = document.createElement('a');
-            link.href = 'Saiteja_frontend_developer.pdf';  // Update with your actual PDF file
-            link.download = 'Saiteja_frontend_developer.pdf';
+            link.href = 'Saiteja_frontend_Developer.pdf';  // Update with your actual PDF file
+            link.download = 'Saiteja_frontend_Developer.pdf';
             link.click();
         }
 
