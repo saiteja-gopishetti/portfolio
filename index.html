@@ -434,7 +434,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
     });
 
     if (res.ok) {
-      showSuccessToast("Message sent — thank you!");
+      showSuccessToast("Thank you for your message! I will get back to you soon");
       this.reset();
     } else {
       const text = await res.text();
