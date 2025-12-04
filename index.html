@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sai Teja Gopishetti | Frontend Developer </title>
+    <title>Frontend Developer </title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -311,17 +311,17 @@
                     </div>
 
                     <div class="col-lg-6 fade-in">
-                        <form class="row g-3" id="contactForm" novalidate>
+                        <form  class="row g-3" id="contactForm">
                             <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="Name" autocomplete="off" required>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" autocomplete="off" required>
                                 <div class="invalid-feedback">Please enter your name.</div>
                             </div>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" placeholder="Email" autocomplete="off" required>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Email" autocomplete="off" required>
                                 <div class="invalid-feedback">Please enter a valid email.</div>
                             </div>
                             <div class="col-12">
-                                <textarea class="form-control" rows="6" placeholder="Message" autocomplete="off" required></textarea>
+                                <textarea class="form-control" id="message" name="message" rows="6" placeholder="Message" autocomplete="off" required></textarea>
                                 <div class="invalid-feedback">Please write a message.</div>
                             </div>
                             <div class="col-12">
@@ -373,10 +373,81 @@
         </div>
     </footer>
 
+<!-- Toast Container -->
+<div class="position-fixed bottom-0 start-0 p-3"  style="z-index: 2000;">
+    
+    <!-- Success Toast -->
+    <div id="toastSuccess" class="toast align-items-center text-white bg-success border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">Thank you for your message! I will get back to you soon</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="toastError" class="toast align-items-center text-white bg-danger border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">Something went wrong!</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+
+</div>
+
+
     <!-- Bootstrap 5 JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="script.js"></script>
+  
+    <script>
+function showSuccessToast(message) {
+    const toastEl = document.getElementById('toastSuccess');
+    toastEl.querySelector('.toast-body').innerText = message;
+
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    toast.show();
+}
+
+function showErrorToast(message) {
+    const toastEl = document.getElementById('toastError');
+    toastEl.querySelector('.toast-body').innerText = message;
+
+    const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    toast.show();
+}
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const data = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    message: document.getElementById('message').value
+  };
+
+  try {
+    const res = await fetch('https://formspree.io/f/xnnezqkp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+      showSuccessToast("Message sent — thank you!");
+      this.reset();
+    } else {
+      const text = await res.text();
+      console.error('Formspree error', res.status, text);
+      showErrorToast("There was a problem sending the message.");
+    }
+  } catch (err) {
+    console.error(err);
+    showErrorToast("Network error — please try again.");
+  }
+});
+</script>
+
 </body>
 
 </html>

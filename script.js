@@ -52,34 +52,34 @@
         }
 
         // Form validation
-        (function () {
-            'use strict'
-            var forms = document.querySelectorAll('.needs-validation')
-            Array.prototype.slice.call(forms).forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })();
+        // (function () {
+        //     'use strict'
+        //     var forms = document.querySelectorAll('.needs-validation')
+        //     Array.prototype.slice.call(forms).forEach(function (form) {
+        //         form.addEventListener('submit', function (event) {
+        //             if (!form.checkValidity()) {
+        //                 event.preventDefault()
+        //                 event.stopPropagation()
+        //             }
+        //             form.classList.add('was-validated')
+        //         }, false)
+        //     })
+        // })();
 
-        // Contact form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // In a real implementation, you would send the form data to a server here
-            alert('Thank you for your message! I will get back to you soon.');
-            this.reset();
-            this.classList.remove('was-validated');
-        });
+        // // Contact form submission
+        // document.getElementById('contactForm').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        //     // In a real implementation, you would send the form data to a server here
+        //     alert('Thank you for your message! I will get back to you soon.');
+        //     this.reset();
+        //     this.classList.remove('was-validated');
+        // });
 
         // Download CV function
         function downloadCV() {
             const link = document.createElement('a');
-            link.href = 'Saiteja_frontend developer.pdf';  // Update with your actual PDF file
-            link.download = 'Saiteja_frontend developer.pdf';
+            link.href = 'Saiteja_frontend_developer.pdf';  // Update with your actual PDF file
+            link.download = 'Saiteja_frontend_developer.pdf';
             link.click();
         }
 
